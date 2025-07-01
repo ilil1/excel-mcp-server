@@ -123,7 +123,7 @@ def apply_formula(
         raise
 
 @mcp.tool()
-def validate(
+def validate_test(
     filepath: str,
     sheet_name: str,
     cell: str,
