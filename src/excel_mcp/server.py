@@ -3,6 +3,13 @@ import os
 import httpx
 from mcp.server.fastmcp import FastMCP
 
+# Get project root directory path for log file path.
+# When using the stdio transmission method,
+# relative paths may cause log files to fail to create
+# due to the client's running location and permission issues,
+# resulting in the program not being able to run.
+# Thus using os.path.join(ROOT_DIR, "excel-mcp.log") instead.
+
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LOG_FILE = os.path.join(ROOT_DIR, "excel-mcp.log")
 
@@ -21,9 +28,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("excel-mcp")
 # Initialize FastMCP server
-mcp = FastMCP(
-    "excel-mcp",
-)
+mcp = FastMCP("excel-mcp")
 
 LARAVEL_API_BASE = "https://api.test-spot.com/api/v1"
 
@@ -89,9 +94,14 @@ async def token_authentication(id: str, password: str, user_type: int):
 async def run_sse():
     """Run Excel MCP server in SSE mode."""
     # Assign value to EXCEL_FILES_PATH in SSE mode
+    global EXCEL_FILES_PATH
+    EXCEL_FILES_PATH = os.environ.get("EXCEL_FILES_PATH", "./excel_files")
+    # Create directory if it doesn't exist
+    os.makedirs(EXCEL_FILES_PATH, exist_ok=True)
+
     try:
         logger.info(f"Starting Excel MCP server with SSE transport (files directory: {EXCEL_FILES_PATH})")
-        mcp.run(transport="sse")
+        await mcp.run_sse_async()
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
         await mcp.shutdown()
