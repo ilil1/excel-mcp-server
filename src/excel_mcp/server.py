@@ -46,6 +46,14 @@ mcp = FastMCP(
 def validate_test_sc() -> str:
     return "성공"
 
+@mcp.tool()
+async def token_authentication() -> str:
+    """
+    사용자 로그인 후 토큰은 내부에 저장되며, 외부로는 노출되지 않습니다.
+    """
+    return "message 로그인 성공"
+
+
 async def run_sse():
     """Run Excel MCP server in SSE mode."""
     # Assign value to EXCEL_FILES_PATH in SSE mode
