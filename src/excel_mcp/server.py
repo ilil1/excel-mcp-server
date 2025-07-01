@@ -84,7 +84,7 @@ async def token_authentication(id: str, password: str, user_type: int):
         return {"error": "로그인 실패"}
 
 
-def run_sse():
+async def run_sse():
     """Run Excel MCP server in SSE mode."""
     # Assign value to EXCEL_FILES_PATH in SSE mode
     global EXCEL_FILES_PATH
@@ -94,10 +94,10 @@ def run_sse():
 
     try:
         logger.info(f"Starting Excel MCP server with SSE transport (files directory: {EXCEL_FILES_PATH})")
-        #await mcp.run_sse_async()
-        mcp.run(transport="sse")
+        await mcp.run_sse_async()
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
+        await mcp.shutdown()
     except Exception as e:
         logger.error(f"Server failed: {e}")
         raise
