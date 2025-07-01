@@ -2,7 +2,6 @@ import logging
 import os
 import httpx
 from mcp.server.fastmcp import FastMCP
-from fastapi import FastAPI
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LOG_FILE = os.path.join(ROOT_DIR, "excel-mcp.log")
@@ -95,8 +94,7 @@ async def run_sse():
 
     try:
         logger.info(f"Starting Excel MCP server with SSE transport (files directory: {EXCEL_FILES_PATH})")
-        app = FastAPI()
-        app.mount("/mcp", mcp.sse_app())
+        await mcp.run_sse_async()
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
         await mcp.shutdown()
