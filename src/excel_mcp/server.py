@@ -76,52 +76,6 @@ def get_excel_path(filename: str) -> str:
     return os.path.join(EXCEL_FILES_PATH, filename)
 
 @mcp.tool()
-def apply_formula(
-    filepath: str,
-    sheet_name: str,
-    cell: str,
-    formula: str,
-) -> str:
-    """
-    Apply Excel formula to cell.
-    Excel formula will write to cell with verification.
-    """
-    try:
-        full_path = get_excel_path(filepath)
-        # First validate the formula
-        validation = validate_formula_impl(full_path, sheet_name, cell, formula)
-        if isinstance(validation, dict) and "error" in validation:
-            return f"Error: {validation['error']}"
-
-        # If valid, apply the formula
-        from excel_mcp.calculations import apply_formula as apply_formula_impl
-        result = apply_formula_impl(full_path, sheet_name, cell, formula)
-        return result["message"]
-    except (ValidationError, CalculationError) as e:
-        return f"Error: {str(e)}"
-    except Exception as e:
-        logger.error(f"Error applying formula: {e}")
-        raise
-
-@mcp.tool()
-def validate_test(
-    filepath: str,
-    sheet_name: str,
-    cell: str,
-    formula: str,
-) -> str:
-    """Validate Excel formula syntax without applying it."""
-    try:
-        full_path = get_excel_path(filepath)
-        result = validate_formula_impl(full_path, sheet_name, cell, formula)
-        return result["message"]
-    except (ValidationError, CalculationError) as e:
-        return f"Error: {str(e)}"
-    except Exception as e:
-        logger.error(f"Error validating formula: {e}")
-        raise
-
-@mcp.tool()
 def validate_test_sc() -> str:
     return "성공"
 
