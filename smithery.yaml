@@ -1,5 +1,5 @@
 startCommand:
-  type: http
+  type: sse
   configSchema:
     type: object
     default: {}
