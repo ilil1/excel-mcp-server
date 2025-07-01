@@ -68,10 +68,10 @@ mcp = FastMCP(
 
 def get_excel_path(filename: str) -> str:
     """Get full path to Excel file.
-    
+
     Args:
         filename: Name of Excel file
-        
+
     Returns:
         Full path to Excel file
     """
@@ -104,7 +104,7 @@ def apply_formula(
         validation = validate_formula_impl(full_path, sheet_name, cell, formula)
         if isinstance(validation, dict) and "error" in validation:
             return f"Error: {validation['error']}"
-            
+
         # If valid, apply the formula
         from excel_mcp.calculations import apply_formula as apply_formula_impl
         result = apply_formula_impl(full_path, sheet_name, cell, formula)
@@ -133,6 +133,10 @@ def validate_test(
         logger.error(f"Error validating formula: {e}")
         raise
 
+@mcp.tool()
+def validate_test_sc() -> str:
+    return "성공"
+
 async def run_sse():
     """Run Excel MCP server in SSE mode."""
     # Assign value to EXCEL_FILES_PATH in SSE mode
@@ -140,7 +144,7 @@ async def run_sse():
     EXCEL_FILES_PATH = os.environ.get("EXCEL_FILES_PATH", "./excel_files")
     # Create directory if it doesn't exist
     os.makedirs(EXCEL_FILES_PATH, exist_ok=True)
-    
+
     try:
         logger.info(f"Starting Excel MCP server with SSE transport (files directory: {EXCEL_FILES_PATH})")
         await mcp.run_sse_async()
@@ -156,7 +160,7 @@ async def run_sse():
 def run_stdio():
     """Run Excel MCP server in stdio mode."""
     # No need to assign EXCEL_FILES_PATH in stdio mode
-    
+
     try:
         logger.info("Starting Excel MCP server with stdio transport")
         mcp.run(transport="stdio")
