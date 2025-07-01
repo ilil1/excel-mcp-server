@@ -3,13 +3,6 @@ import os
 import httpx
 from mcp.server.fastmcp import FastMCP
 
-# Get project root directory path for log file path.
-# When using the stdio transmission method,
-# relative paths may cause log files to fail to create
-# due to the client's running location and permission issues,
-# resulting in the program not being able to run.
-# Thus using os.path.join(ROOT_DIR, "excel-mcp.log") instead.
-
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LOG_FILE = os.path.join(ROOT_DIR, "excel-mcp.log")
 
