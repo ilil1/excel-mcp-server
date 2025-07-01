@@ -91,15 +91,14 @@ def run_sse():
     os.makedirs(EXCEL_FILES_PATH, exist_ok=True)
 
     logger.info(f"Starting Excel MCP SSE server on /mcp (files dir: {EXCEL_FILES_PATH})")
-    # transport="sse"로 SSE 모드, path="/mcp"로 엔드포인트 조정
+    # → transport="sse", mount_path="/mcp" 로 SSE 엔드포인트 조정
     mcp.run(
         transport="sse",
-        host="0.0.0.0",
-        port=int(os.environ.get("PORT", 8000)),
-        log_level="info",
-        path="/mcp",           # SSE 연결용 URL을 /mcp로 변경
-        messages_path="/messages",  # 클라이언트가 POST할 메시지 경로
+        mount_path="/mcp",
     )
+    # 이렇게 하면:
+    #  • SSE 연결은 GET  /mcp?… 으로
+    #  • 메시지 POST는    POST /mcp/messages  으로 처리됩니다.
 
 def run_stdio():
     """Run Excel MCP server in stdio mode."""
