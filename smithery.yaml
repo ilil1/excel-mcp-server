@@ -1,0 +1,9 @@
+startCommand:
+  type: sse
+  configSchema:
+    type: object
+    default: {}
+    description: No config needed
+  exampleConfig: {}
+  commandFunction: |-
+    (config) => ({ command: 'excel-mcp-server', args: ['sse'] })
