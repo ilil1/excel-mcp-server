@@ -1,25 +1,17 @@
 import logging
 import os
-from typing import Any, List, Dict
 
 from mcp.server.fastmcp import FastMCP
 
 # Import exceptions
 from excel_mcp.exceptions import (
     ValidationError,
-    WorkbookError,
-    SheetError,
-    DataError,
-    FormattingError,
     CalculationError,
-    PivotError,
-    ChartError
 )
 
 # Import from excel_mcp package with consistent _impl suffixes
 from excel_mcp.validation import (
     validate_formula_in_cell_operation as validate_formula_impl,
-    validate_range_in_sheet_operation as validate_range_impl
 )
 from excel_mcp.chart import create_chart_in_sheet as create_chart_impl
 from excel_mcp.workbook import get_workbook_info
