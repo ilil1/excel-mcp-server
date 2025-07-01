@@ -2,6 +2,7 @@
   <img src="assets/logo.png" alt="Excel MCP Server Logo" width="300"/>
 </p>
 
+[![smithery badge](https://smithery.ai/badge/@ilil1/excel-mcp-server)](https://smithery.ai/server/@ilil1/excel-mcp-server)
 [![PyPI version](https://img.shields.io/pypi/v/excel-mcp-server.svg)](https://pypi.org/project/excel-mcp-server/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/excel-mcp-server.svg)](https://pypi.org/project/excel-mcp-server/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -42,6 +43,14 @@ SSE transport is perfect for remote connections, which manipulate remote files:
 
 ```bash
 uvx excel-mcp-server sse
+```
+
+### Installing via Smithery
+
+To install excel-mcp-server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@ilil1/excel-mcp-server):
+
+```bash
+npx -y @smithery/cli install @ilil1/excel-mcp-server --client claude
 ```
 
 ### Add to Cursor
