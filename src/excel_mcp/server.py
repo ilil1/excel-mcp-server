@@ -12,8 +12,8 @@ from excel_mcp.exceptions import (
 # Import from excel_mcp package with consistent _impl suffixes
 from excel_mcp.validation import (
     validate_formula_in_cell_operation as validate_formula_impl,
+    validate_range_in_sheet_operation as validate_range_impl
 )
-from excel_mcp.chart import create_chart_in_sheet as create_chart_impl
 from excel_mcp.workbook import get_workbook_info
 from excel_mcp.data import write_data
 from excel_mcp.pivot import create_pivot_table as create_pivot_table_impl
