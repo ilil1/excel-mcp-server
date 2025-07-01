@@ -12,7 +12,7 @@ def sse():
     print("----------------------")
     print("Press Ctrl+C to exit")
     try:
-        run_sse()
+        asyncio.run(run_sse())
     except KeyboardInterrupt:
         print("\nShutting down server...")
     except Exception as e:
