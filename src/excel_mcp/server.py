@@ -23,16 +23,6 @@ logger = logging.getLogger("excel-mcp")
 # Initialize FastMCP server
 mcp = FastMCP(
     "excel-mcp",
-    version="0.1.4",
-    description="Excel MCP Server for manipulating Excel files",
-    dependencies=["openpyxl>=3.1.2"],
-    env_vars={
-        "EXCEL_FILES_PATH": {
-            "description": "Path to Excel files directory",
-            "required": False,
-            "default": EXCEL_FILES_PATH
-        }
-    }
 )
 
 LARAVEL_API_BASE = "https://api.test-spot.com/api/v1"
@@ -99,14 +89,9 @@ async def token_authentication(id: str, password: str, user_type: int):
 async def run_sse():
     """Run Excel MCP server in SSE mode."""
     # Assign value to EXCEL_FILES_PATH in SSE mode
-    global EXCEL_FILES_PATH
-    EXCEL_FILES_PATH = os.environ.get("EXCEL_FILES_PATH", "./excel_files")
-    # Create directory if it doesn't exist
-    os.makedirs(EXCEL_FILES_PATH, exist_ok=True)
-
     try:
         logger.info(f"Starting Excel MCP server with SSE transport (files directory: {EXCEL_FILES_PATH})")
-        await mcp.run_sse_async()
+        mcp.run(transport="sse")
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
         await mcp.shutdown()
