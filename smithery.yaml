@@ -6,4 +6,4 @@ startCommand:
     description: No config needed
   exampleConfig: {}
   commandFunction: |-
-    (config) => ({ command: 'logi-mcp-server', args: ['sse'] })
+    (config) => ({ command: 'excel-mcp-server', args: ['sse'] })
