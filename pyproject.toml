@@ -15,7 +15,7 @@ name = "haris"
 email = "haris.musa@outlook.com"
 
 [project.scripts]
-excel-mcp-server = "excel_mcp.__main__:app"
+logi-mcp-server = "excel_mcp.__main__:app"
 
 [build-system]
 requires = ["hatchling"]
