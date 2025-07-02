@@ -19,7 +19,7 @@ logging.basicConfig(
         logging.FileHandler(LOG_FILE)
     ],
 )
-logger = logging.getLogger("excel-mcp")
+logger = logging.getLogger("logi-mcp")
 # Initialize FastMCP server
 mcp = FastMCP("logi-mcp")
 
