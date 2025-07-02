@@ -1,5 +1,5 @@
 [project]
-name = "excel-mcp-server"
+name = "logi-mcp-server"
 version = "0.1.4"
 description = "Excel MCP Server for manipulating Excel files"
 readme = "README.md"
