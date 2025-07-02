@@ -84,21 +84,25 @@ async def token_authentication(id: str, password: str, user_type: int):
         return {"error": "로그인 실패"}
 
 
-def run_sse():
-    """Excel MCP 서버를 SSE transport로 /mcp 엔드포인트에 띄웁니다."""
+async def run_sse():
+    """Run Excel MCP server in SSE mode."""
+    # Assign value to EXCEL_FILES_PATH in SSE mode
     global EXCEL_FILES_PATH
     EXCEL_FILES_PATH = os.environ.get("EXCEL_FILES_PATH", "./excel_files")
+    # Create directory if it doesn't exist
     os.makedirs(EXCEL_FILES_PATH, exist_ok=True)
 
-    logger.info(f"Starting Excel MCP SSE server on /mcp (files dir: {EXCEL_FILES_PATH})")
-    # → transport="sse", mount_path="/mcp" 로 SSE 엔드포인트 조정
-    mcp.run(
-        transport="sse",
-        mount_path="/mcp",
-    )
-    # 이렇게 하면:
-    #  • SSE 연결은 GET  /mcp?… 으로
-    #  • 메시지 POST는    POST /mcp/messages  으로 처리됩니다.
+    try:
+        logger.info(f"Starting Excel MCP server with SSE transport (files directory: {EXCEL_FILES_PATH})")
+        await mcp.run_sse_async()
+    except KeyboardInterrupt:
+        logger.info("Server stopped by user")
+        await mcp.shutdown()
+    except Exception as e:
+        logger.error(f"Server failed: {e}")
+        raise
+    finally:
+        logger.info("Server shutdown complete")
 
 def run_stdio():
     """Run Excel MCP server in stdio mode."""
