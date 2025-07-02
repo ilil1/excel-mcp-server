@@ -7,10 +7,7 @@ app = typer.Typer(help="Excel MCP Server")
 
 @app.command()
 def sse():
-    """Start Excel MCP Server in SSE mode"""
-    print("Excel MCP Server - SSE mode")
-    print("----------------------")
-    print("Press Ctrl+C to exit")
+    """MCP Server in SSE mode"""
     try:
         asyncio.run(run_sse())
     except KeyboardInterrupt:
@@ -24,7 +21,7 @@ def sse():
 
 @app.command()
 def stdio():
-    """Start Excel MCP Server in stdio mode"""
+    """ MCP Server in stdio mode"""
     try:
         run_stdio()
     except KeyboardInterrupt:
