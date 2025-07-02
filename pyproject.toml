@@ -10,9 +10,6 @@ dependencies = [
     "typer>=0.15.1",
     "httpx>=0.28.1"
 ]
-[[project.authors]]
-name = "haris"
-email = "haris.musa@outlook.com"
 
 [project.scripts]
 excel-mcp-server = "excel_mcp.__main__:app"
