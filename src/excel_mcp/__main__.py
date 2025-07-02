@@ -1,9 +1,9 @@
 import asyncio
 import typer
 
-from .server import run_sse, run_stdio
+from excel_mcp.server import run_sse, run_stdio
 
-app = typer.Typer(help="Excel MCP Server")
+app = typer.Typer(help="Logi MCP Server")
 
 @app.command()
 def sse():
