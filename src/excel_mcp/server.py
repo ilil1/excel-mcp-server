@@ -21,7 +21,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("excel-mcp")
 # Initialize FastMCP server
-mcp = FastMCP("excel-mcp")
+mcp = FastMCP("logi-mcp")
 
 LARAVEL_API_BASE = "https://api.test-spot.com/api/v1"
 
